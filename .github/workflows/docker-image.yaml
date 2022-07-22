@@ -14,21 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: docker login
-      env: 
-        DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASS}}
-        REPO_NAME: ${{secrets.REPO_NAME}}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: Get current date # get the date of the build
-      id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USER}}/${{secrets.REPO_NAME}}:${{steps.date.outputs.date}}
-      
-    - name: Build and push
-        uses: docker/build-push-action@v3
+    - name: Login to DockerHub
+        uses: docker/login-action@v2
         with:
-          push: true
-          tags: noviadisuryo/docker-cicd:latest
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: noviadisuryo/docker-cicd:latest
