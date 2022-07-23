@@ -39,3 +39,5 @@ Buat perubahan pada project / aplikasi di dalam "my_app", untuk memicu
 
 * [suyog shinde - Medium](https://medium.com/nonstopio/part-1-github-actions-docker-hub-versioning-continous-integrations-142cbd95fe0b)
 * [Docker Build Push Action](https://github.com/docker/build-push-action)
+
+Thank you
